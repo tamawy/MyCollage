@@ -1,0 +1,14 @@
+﻿@model MyCollage.ViewModel.DepartmentVM
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+<form action="/Department/Add" method="post">
+    <div class="form-group">
+        @Html.LabelFor(item => item.Name)
+        @Html.TextBoxFor(item => item.Name, new { @class="form-control"})
+        @Html.ValidationMessageFor(item => item.Name)
+    </div>
+    <input type="submit" class="btn btn-success" />
+</form>

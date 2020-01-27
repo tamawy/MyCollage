@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CollageDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="StudentDepartment" Relationship="Self.FK_StudentDepartment_Department" FromRole="Department" ToRole="StudentDepartment" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_Subject_Department" FromRole="Department" ToRole="Subject" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="StudentDepartment" Relationship="Self.FK_StudentDepartment_Student" FromRole="Student" ToRole="StudentDepartment" />
+  </EntityType>
+  <EntityType Name="StudentDepartment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentFK" Type="Int32" Nullable="false" />
+    <Property Name="DepartmnetFK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_StudentDepartment_Department" FromRole="StudentDepartment" ToRole="Department" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_StudentDepartment_Student" FromRole="StudentDepartment" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FullDegree" Type="Int32" Nullable="false" />
+    <Property Name="DepartmentFk" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_Subject_Department" FromRole="Subject" ToRole="Department" />
+  </EntityType>
+  <Association Name="FK_StudentDepartment_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="StudentDepartment" Type="Self.StudentDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="StudentDepartment">
+        <PropertyRef Name="DepartmnetFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Subject_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Subject">
+        <PropertyRef Name="DepartmentFk" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentDepartment_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentDepartment" Type="Self.StudentDepartment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="StudentDepartment">
+        <PropertyRef Name="StudentFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CollageDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Department" EntityType="Self.Department" />
+    <EntitySet Name="Student" EntityType="Self.Student" />
+    <EntitySet Name="StudentDepartment" EntityType="Self.StudentDepartment" />
+    <EntitySet Name="Subject" EntityType="Self.Subject" />
+    <AssociationSet Name="FK_StudentDepartment_Department" Association="Self.FK_StudentDepartment_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="StudentDepartment" EntitySet="StudentDepartment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Subject_Department" Association="Self.FK_Subject_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Subject" EntitySet="Subject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentDepartment_Student" Association="Self.FK_StudentDepartment_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentDepartment" EntitySet="StudentDepartment" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

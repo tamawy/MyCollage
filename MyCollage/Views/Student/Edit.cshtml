@@ -1,0 +1,28 @@
+﻿@model MyCollage.ViewModel.StudentVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<form action="/Student/Edit" method="post">
+    @Html.HiddenFor(item => item.ID)
+    <div class="form-group">
+        @Html.LabelFor(item => item.FirstName)
+        @Html.TextBoxFor(item => item.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(item => item.FirstName)
+
+        <br />
+        @Html.LabelFor(item => item.LastName)
+        @Html.TextBoxFor(item => item.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(item => item.LastName)
+        <br />
+        @Html.LabelFor(item => item.Email)
+        @Html.TextBoxFor(item => item.Email, new { @class = "form-control", type="email" })
+        @Html.ValidationMessageFor(item => item.Email)
+        <br />
+        @Html.LabelFor(item => item.Password)
+        @Html.PasswordFor(item => item.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(item => item.Password)
+    </div>
+    <input type="submit" class="btn btn-success" />
+</form>

@@ -1,0 +1,22 @@
+﻿@model MyCollage.ViewModel.DepartmentVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+@if (Model != null)
+{
+    <form action="/Department/Edit" method="post">
+        @Html.HiddenFor(item => item.ID)
+        <div class="form-group">
+            @Html.LabelFor(item => item.Name)
+            @Html.TextBoxFor(item => item.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(item => item.Name)
+        </div>
+        <input type="submit" class="btn btn-success" />
+    </form>
+}
+else
+{
+    <p class="alert alert-danger">No data found</p>
+}

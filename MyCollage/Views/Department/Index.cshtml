@@ -1,0 +1,37 @@
+﻿@model List<MyCollage.Models.Department>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Department</h2>
+<div class="container">
+    <a href="/Department/Add" class="btn btn-success">Add</a>
+    @if (Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Department Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>
+                            <a href="/Department/Edit/@item.ID" class="btn btn-primary">Edit</a>
+                            <a href="/Department/Delete/@item.ID" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="alert alert-danger">No data found</p>
+    }
+
+</div>
